@@ -1,18 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-<form action = "{{ url_for('addrec') }}" method = "POST">
+<form action = "{{ url_for('addrec') }}" method = "POST" data-toggle="validator" role="form">
 	<h3>Request a Donation</h3>
 	<br>
-	<input type = "text" name = "nm" class="form-control" placeholder="Name"></br>
 
-	<textarea name = "add" class="form-control" placeholder="Address"></textarea><br>
+	<div class="form-group has-feedback">
+	<input type = "text" name = "nm" class="form-control" placeholder="Name" pattern="^[A-z\s]{1,}$" required >
+	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	<!-- <div class="help-block with-errors"></div> -->
+	</div>
+
+	<div class="form-group has-feedback">
+	<textarea name = "add" class="form-control" placeholder="Address" pattern="^[A-z0-9\s]{1,}$"required></textarea>
+	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	<!-- <div class="help-block with-errors"></div> -->
+	</div>
 	
-	<input type = "text" name = "city" class="form-control" placeholder="City"><br>
+	<div class="form-group has-feedback">
+	<input type = "text" name = "city" class="form-control" placeholder="City" pattern="^[A-z\s]{1,}$" required>
+	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	<!-- <div class="help-block with-errors"></div> -->
+	</div>
 	
-	<input type = "text" name = "pin" class="form-control" placeholder="Description"><br>
+	<div class="form-group has-feedback">
+	<textarea name = "pin" name = "pin" class="form-control" placeholder="Description" pattern="^[A-z0-9\s]{1,}$" required></textarea>
+	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+	<!-- <div class="help-block with-errors"></div> -->
+	</div>
 	
-	<select name = "Type" class="form-control" placeholder="Type"> >
+	<select name = "Type" class="form-control" placeholder="Type" required> >
 		<option value="food">Food</option>
 		<option value="clothes">Clothes</option>
 		<option value="hygiene">Hygiene</option>
