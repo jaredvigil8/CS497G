@@ -9,7 +9,7 @@
 			<td>Name</td>
 			<td>Address</td>
 			<td>City</td>
-			<td>Pincode</td>
+			<td>descrpcode</td>
 			<td>Type</td>
 		</thead>
 
@@ -18,7 +18,7 @@
 				<td>{{row["name"]}}</td>
 				<td>{{row["addr"]}}</td>
 				<td>{{row["city"]}}</td>
-				<td>{{row["pin"]}}</td>
+				<td>{{row["descrp"]}}</td>
 				<td>{{row["Type"]}}</td>
 			</tr>
 		{% endfor %}
@@ -38,10 +38,11 @@
     <div id="collapse{{loop.index}}" class="panel-collapse collapse">
       <div class="panel-body">
         <table>
-      <tr >{{row["pin"]}}</tr>
+      <tr >{{row["descrp"]}}</tr>
         </table>
-        {% set temp = row["name"] %}
-        <button class="btn" onclick="location.href='{{ url_for('item',name=temp)}}'" type="submit">Go to this Item</button>
+        {% set id = row["fileid"] %}
+        {% set tableType = row["type"] %}
+        <button class="btn" onclick="location.href='{{ url_for('item',fileid=id, type=tableType)}}'" type="submit">Go to this Item</button>
 
     </div>
     </div>

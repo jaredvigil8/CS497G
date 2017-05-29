@@ -31,18 +31,18 @@ def addrec():
 			nm = request.form['nm']
 			addr = request.form['add']
 			city = request.form['city']
-			pin = request.form['pin']
+			descrp = request.form['descrp']
 			Type = request.form['Type']
 			aid = request.form['aid']
 			with sql.connect("database.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO allItems (name,addr,city,pin,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,pin,Type,aid)
+				cur.execute("INSERT INTO allItems (name,addr,city,descrp,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,descrp,Type,aid)
 )
 				con.commit()
 				message = "Record successfully added"
 			with sql.connect("database.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO "+Type+" (name,addr,city,pin,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,pin,Type,aid))
+				cur.execute("INSERT INTO "+Type+" (name,addr,city,descrp,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,descrp,Type,aid))
 				con.commit()
 				message = "Record successfully added into "+Type
 		except:
@@ -70,10 +70,21 @@ def listrequests():
 	con.row_factory = sql.Row
 
 	cur = con.cursor()
-	cur.execute("select * from allItems WHERE aid = 'request'")
-
-	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	cur.execute("select * from food  WHERE aid = 'request'")
+	foodRows = cur.fetchall()
+	cur.execute("select * from hygiene  WHERE aid = 'request'")
+	hygieneRows = cur.fetchall()
+	cur.execute("select * from jobs  WHERE aid = 'request'")
+	jobsRow = cur.fetchall()
+	cur.execute("select * from clothes  WHERE aid = 'request'")
+	clothesRows = cur.fetchall()
+	cur.execute("select * from shelter  WHERE aid = 'request'")
+	shelterRows = cur.fetchall()
+	cur.execute("select * from transportation  WHERE aid = 'request'")
+	transportationRows = cur.fetchall()
+	return render_template('listAll.html', foodRows = foodRows, hygieneRows = hygieneRows,
+                               jobsRow=jobsRow, clothesRows=clothesRows,shelterRows=shelterRows,
+                               transportationRows=transportationRows)
 
 @app.route('/Donate')
 def Donate():
@@ -102,17 +113,19 @@ def showFood():
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
-    
+
 @app.route('/item')
 def item():
-    name = request.args.get('name', None)
+    fileid = request.args.get('fileid', None)
+    tableType = request.args.get('type', None)
+
     con = sql.connect("database.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-    cur.execute("SELECT * FROM allItems WHERE  name=?",[name])
+    cur.execute("SELECT * FROM "+tableType+" WHERE  fileid=?",[fileid])
     info = cur.fetchall()
-    nameTable = info[0]
-    return render_template('item.html',info = nameTable)
+    idTable = info[0]
+    return render_template('item.html',info = idTable)
 
 @app.route('/showHygiene')
 def showHygiene():
