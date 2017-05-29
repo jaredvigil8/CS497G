@@ -1,3 +1,4 @@
+
 {% extends "searchResults.html" %}
 {% block found %}
 <br><br>
@@ -11,7 +12,7 @@
 			<td>Pincode</td>
 			<td>Type</td>
 		</thead>
-		
+
 		{% for row in rows %}
 			<tr>
 				<td>{{row["name"]}}</td>
@@ -27,18 +28,22 @@
 !-->
 <div class="panel-group" id="accordion">
 {% for row in rows %}
-  <div class="panel panel-default" style="width:75%">
+  <div class="panel panel-default" style="width:75%" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
+        <a >
         {{row["name"]}}</a>
       </h4>
     </div>
     <div id="collapse{{loop.index}}" class="panel-collapse collapse">
-      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat.</div>
+      <div class="panel-body">
+        <table>
+      <tr >{{row["pin"]}}</tr>
+        </table>
+        {% set temp = row["name"] %}
+        <button class="btn" onclick="location.href='{{ url_for('item',name=temp)}}'" type="submit">Go to this Item</button>
+
+    </div>
     </div>
   </div>
 {% endfor %}
