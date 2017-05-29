@@ -1,62 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Resource Pairing Web App</title>
-
-   
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
-    <link href="../static/css/signup.css" rel="stylesheet">
-    <script src="../static/js/jquery-1.11.2.js"></script>
-    <script src="../static/js/signUp.js"></script>
-   
-  </head>
-
-  <body>
-
-    <div class="container">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="/">Home</a></li>
-			<li role="presentation"><a href="Tutorial">Tutorial</a></li>
-            <li role="presentation"><a href="#">Sign In</a></li>
-            <li role="presentation"><a href="/Signup">Sign Up</a></li>
-			<li role="presentation"><a href="/Receive">Switch to Receive</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Resource Pairing</h3>
-      </div>
-
-      <div class="jumbotron">
-        <h1>Donate an Item</h1>
-
-        <form class="form-donate">
-
-		    <label for="inputName" class="sr-only">Name</label>
-		    <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
-
-		    <label for="inputItem" class="sr-only">Item donating</label>
-		    <input type="Item donating" name="inputItem id="inputItem" class="form-control" placeholder="Item Donating" required autofocus>
-		    
-			<label for="inputType" class="sr-only">Item Type</label>
-		    <input type="Type" name="inputType" id="inputType" class="form-control" placeholder="Item Type" required>
-
-			<label for="inputLocation" class="sr-only">Location</label>
-		    <input type="Location" name="inputLocation" id="inputLocation" class="form-control" placeholder="Location" required>
-		    
-		    <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Donate</button>
-      	</form>
-      </div>
+{% extends "base.html" %}
+	{% block content %}
+	<h1> Donate </h1>
 
       
+	<div class="row marketing">
+        <div class="col-lg-6">
+        	<a class="btn btn-lg btn-success" href="showFood" role="button">Food</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="showHygiene" role="button">Hygiene</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="showOddjobs" role="button">Odd Jobs</a>
+        </div>
 
-      <footer class="footer">
-        <p>&copy; WWU CSCI497G </p>
-      </footer>
-
-    </div>
-  </body>
-</html>
+        <div class="col-lg-6">
+			<a class="btn btn-lg btn-success" href="showClothes" role="button">Clothes</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="showShelter" role="button">Shelter</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="showTransportation" role="button">Transportation</a>
+      	</div>
+	</div>
+	{% endblock %}
 
