@@ -5,16 +5,16 @@
 	<div class="row marketing">
         <br>
 	<div class="col-lg-6">
-		<a class="btn btn-lg btn-success" href="/list" role="button">All Donations</a></br><br/>
-		<a class="btn btn-lg btn-success" href="showFood" role="button">Food</a> <br/><br/>
-			<a class="btn btn-lg btn-success" href="showHygiene" role="button">Hygiene</a> <br/><br/>
-			<a class="btn btn-lg btn-success" href="showOddjobs" role="button">Odd Jobs</a>
+		<a class="btn btn-lg btn-success" href="/listrequests" role="button">All Requests</a></br><br/>
+		<a class="btn btn-lg btn-success" href="{{ url_for('showFood',aid='request')}}" role="button">Food</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="{{ url_for('showHygiene', aid='request')}}" role="button">Hygiene</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="{{ url_for('showOddjobs', aid='request')}}" role="button">Odd Jobs</a>
         </div>
 
         <div class="col-lg-6">
-			<a class="btn btn-lg btn-success" href="showClothes" role="button">Clothes</a> <br/><br/>
-			<a class="btn btn-lg btn-success" href="showShelter" role="button">Shelter</a> <br/><br/>
-			<a class="btn btn-lg btn-success" href="showTransportation" role="button">Transportation</a>
+			<a class="btn btn-lg btn-success" href="{{ url_for('showClothes', aid='request')}}" role="button">Clothes</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="{{ url_for('showShelter', aid='request')}}" role="button">Shelter</a> <br/><br/>
+			<a class="btn btn-lg btn-success" href="{{ url_for('showTransportation', aid='request')}}" role="button">Transportation</a>
       	</div>
 	</div>
 {% endblock %}
