@@ -33,17 +33,18 @@ def addrec():
 			city = request.form['city']
 			pin = request.form['pin']
 			Type = request.form['Type']
+			aid = request.form['aid']
 			with sql.connect("database.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO allItems (name,addr,city,pin,Type) VALUES (?,?,?,?,?)",(nm,addr,city,pin,Type) 
+				cur.execute("INSERT INTO allItems (name,addr,city,pin,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,pin,Type,aid) 
 )
 				con.commit()
-				message = "Record successfully added into "+ Type
+				message = "Record successfully added"
 			with sql.connect("database.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO "+Type+" (name,addr,city,pin,Type) VALUES (?,?,?,?,?)",(nm,addr,city,pin,Type))
+				cur.execute("INSERT INTO "+Type+" (name,addr,city,pin,Type,aid) VALUES (?,?,?,?,?,?)",(nm,addr,city,pin,Type,aid))
 				con.commit()
-				message = "Record successfully added into "+ Type
+				message = "Record successfully added into "+Type
 		except:
 			con.rollback()
 			message = "Error in insert operation"
@@ -52,17 +53,27 @@ def addrec():
 			return render_template("result.html", msg = message)
 			con.close()
 
-@app.route('/list')
-def list():
-	con = sql.connect("database.db")	
+@app.route('/listdonations')
+def listdonations():
+        con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from allItems")
+	cur.execute("select * from allItems WHERE aid = 'donation'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 
+@app.route('/listrequests')
+def listrequests():
+        con = sql.connect("database.db")	
+	con.row_factory = sql.Row
+	
+	cur = con.cursor()
+	cur.execute("select * from allItems WHERE aid = 'request'")
+
+	rows = cur.fetchall()
+	return render_template('list.html', rows = rows)
 	
 @app.route('/Donate')
 def Donate():
@@ -81,65 +92,73 @@ def Signup():
     return render_template('signup.html')
 @app.route('/showFood')
 def showFood(): 
+
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from food")
+	cur.execute("select * from food WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 
 @app.route('/showHygiene')
 def showHygiene():
+
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from hygiene")
+	cur.execute("select * from hygiene WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 
 @app.route('/showOddjobs')
 def showOddjobs():
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from jobs")
+	cur.execute("select * from jobs WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 @app.route('/showClothes')
 def showClothes():
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from clothes")
+	cur.execute("select * from clothes WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 
 @app.route('/showShelter')
 def showShelter():
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from shelter")
+	cur.execute("select * from shelter WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
 
 @app.route('/showTransportation')
 def showTransportation():
+	aid = request.args.get('aid', None)
 	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
-	cur.execute("select * from transportation")
+	cur.execute("select * from transportation WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
 	return render_template('list.html', rows = rows)
