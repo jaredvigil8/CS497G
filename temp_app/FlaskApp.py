@@ -59,10 +59,36 @@ def listdonations():
 	con.row_factory = sql.Row
 
 	cur = con.cursor()
-	cur.execute("select * from allItems WHERE aid = 'donation'")
+	cur.execute("select * from food  WHERE aid = 'donation'")
+	foodRows = cur.fetchall()
+	cur.execute("select * from hygiene  WHERE aid = 'donation'")
+	hygieneRows = cur.fetchall()
+	cur.execute("select * from jobs  WHERE aid = 'donation'")
+	jobsRow = cur.fetchall()
+	cur.execute("select * from clothes  WHERE aid = 'donation'")
+	clothesRows = cur.fetchall()
+	cur.execute("select * from shelter  WHERE aid = 'donation'")
+	shelterRows = cur.fetchall()
+	cur.execute("select * from transportation  WHERE aid = 'donation'")
+	transportationRows = cur.fetchall()
+        donDict ={};
+        donDict['foodRows'] = foodRows;
+        donDict['foodRowsSize'] = len(foodRows);
+        donDict['hygieneRows'] = hygieneRows;
+        donDict['hygieneRowsSize'] = len(hygieneRows);
+        donDict['jobsRow'] = jobsRow;
+        donDict['jobsRowSize'] = len(jobsRow);
+        donDict['clothesRows'] = clothesRows;
+        donDict['clothesRowsSize'] = len(clothesRows);
+        donDict['shelterRows'] = shelterRows;
+        donDict['shelterRowsSize'] = len(shelterRows);
+        donDict['transportationRows'] = transportationRows;
+        donDict['transportationRowsSize'] = len(transportationRows);
+        title = "All the Donations"
+
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	return render_template('listAll.html', donDict = donDict,title=title)
 
 @app.route('/listrequests')
 def listrequests():
@@ -82,9 +108,22 @@ def listrequests():
 	shelterRows = cur.fetchall()
 	cur.execute("select * from transportation  WHERE aid = 'request'")
 	transportationRows = cur.fetchall()
-	return render_template('listAll.html', foodRows = foodRows, hygieneRows = hygieneRows,
-                               jobsRow=jobsRow, clothesRows=clothesRows,shelterRows=shelterRows,
-                               transportationRows=transportationRows)
+        donDict ={};
+        donDict['foodRows'] = foodRows;
+        donDict['foodRowsSize'] = len(foodRows);
+        donDict['hygieneRows'] = hygieneRows;
+        donDict['hygieneRowsSize'] = len(hygieneRows);
+        donDict['jobsRow'] = jobsRow;
+        donDict['jobsRowSize'] = len(jobsRow);
+        donDict['clothesRows'] = clothesRows;
+        donDict['clothesRowsSize'] = len(clothesRows);
+        donDict['shelterRows'] = shelterRows;
+        donDict['shelterRowsSize'] = len(shelterRows);
+        donDict['transportationRows'] = transportationRows;
+        donDict['transportationRowsSize'] = len(transportationRows);
+        title = "All the Requests"
+
+	return render_template('listAll.html', donDict = donDict,title=title)
 
 @app.route('/Donate')
 def Donate():
@@ -110,9 +149,13 @@ def showFood():
 
 	cur = con.cursor()
 	cur.execute("select * from food WHERE aid = '"+aid+"'")
-
+        title = ""
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+        if(aid == "donation"):
+            title = "Donations for All Food"
+        else:
+            title = "Request for All Food"
+	return render_template('list.html',  rows = rows,aid=aid, title=title)
 
 @app.route('/item')
 def item():
@@ -127,6 +170,22 @@ def item():
     idTable = info[0]
     return render_template('item.html',info = idTable)
 
+@app.route('/delete')
+def delete():
+    fileid = request.args.get('fileid', None)
+    tableType = request.args.get('type', None)
+
+    con = sql.connect("database.db")
+    con.row_factory = sql.Row
+    cur = con.cursor()
+    cur.execute("DELETE FROM "+tableType+" WHERE  fileid=?",[fileid])
+    con.commit()
+    message = "you have deleted the item from the database"
+    return render_template("result.html", msg = message)
+    con.close()
+
+
+
 @app.route('/showHygiene')
 def showHygiene():
 
@@ -138,7 +197,11 @@ def showHygiene():
 	cur.execute("select * from hygiene WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	if(aid == "donation"):
+            title = "Donations for All Hygiene"
+        else:
+            title = "Request for All Food"
+	return render_template('list.html',  rows = rows,aid=aid,title = title)
 
 @app.route('/showOddjobs')
 def showOddjobs():
@@ -150,7 +213,11 @@ def showOddjobs():
 	cur.execute("select * from jobs WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	if(aid == "donation"):
+            title = "Donations for All Odd Jobs"
+        else:
+            title = "Request for All Odd Jobs"
+	return render_template('list.html',  rows = rows,aid=aid,title = title)
 @app.route('/showClothes')
 def showClothes():
 	aid = request.args.get('aid', None)
@@ -161,7 +228,11 @@ def showClothes():
 	cur.execute("select * from clothes WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	if(aid == "donation"):
+            title = "Donations for All Clothes"
+        else:
+            title = "Request for All Clothes"
+	return render_template('list.html',  rows = rows,aid=aid,title = title)
 
 @app.route('/showShelter')
 def showShelter():
@@ -173,7 +244,11 @@ def showShelter():
 	cur.execute("select * from shelter WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	if(aid == "donation"):
+            title = "Donations for All Shelter"
+        else:
+            title = "Request for All Shelter"
+	return render_template('list.html',  rows = rows,aid=aid,title = title)
 
 @app.route('/showTransportation')
 def showTransportation():
@@ -185,7 +260,11 @@ def showTransportation():
 	cur.execute("select * from transportation WHERE aid = '"+aid+"'")
 
 	rows = cur.fetchall()
-	return render_template('list.html', rows = rows)
+	if(aid == "donation"):
+            title = "Donations for All Transportation"
+        else:
+            title = "Request for All Transportation"
+	return render_template('list.html',  rows = rows,aid=aid,title = title)
 
 if __name__ == "__main__":
     app.run(debug = True)
