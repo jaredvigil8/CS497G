@@ -9,7 +9,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
   <style>
+
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
       margin-bottom: 0;
@@ -17,7 +22,7 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: 100% }
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -44,6 +49,35 @@
       .row.content {height:auto;} 
     }
   </style>
+  
+    <script>
+$(document).ready(function(){
+
+    var vHeight = Math.max($(document).height(), $(window).height());
+    var height = vHeight - 60;
+
+    cover = $('.sidenav');
+
+    cover.css({"height":height});
+
+});
+$(window).resize(function(){
+
+    if ($(document).height() > $(window).height()) {
+      var vheight = $(document).height() - ($(window).height()*(1/($(document).height() - $(window).height())))
+    }
+    else {
+      var vheight = $(window).height()
+    }
+
+    var height = vheight - 60
+    cover = $('.sidenav');
+
+    cover.css({"height":height});
+});
+  </script>
+
+
   </head>
 
   <body>
