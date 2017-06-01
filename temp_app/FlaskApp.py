@@ -87,6 +87,10 @@ def Receive():
 def Tutorial():
     return render_template('tutorial.html')
 
+@app.route('/Contact')
+def Contact():
+    return render_template('contact.html')
+
 @app.route('/Signup')
 def Signup():
     return render_template('signup.html')
