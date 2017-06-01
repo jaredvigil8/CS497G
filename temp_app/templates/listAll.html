@@ -174,7 +174,7 @@
 </div>
 {%endif%}
 
-{%if donDict[transportationRowsSize] == 0 %}
+{%if donDict['transportationRowsSize'] > 0 %}
 <div class="panel-group" id="accordion6">
   <h2><font size="6">All Transportation</font></h2>
 {% for row in donDict['transportationRows'] %}
