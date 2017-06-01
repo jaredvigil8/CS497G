@@ -55,7 +55,7 @@ def addrec():
 
 @app.route('/listdonations')
 def listdonations():
-        con = sql.connect("database.db")	
+	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
@@ -66,7 +66,7 @@ def listdonations():
 
 @app.route('/listrequests')
 def listrequests():
-        con = sql.connect("database.db")	
+	con = sql.connect("database.db")	
 	con.row_factory = sql.Row
 	
 	cur = con.cursor()
