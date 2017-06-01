@@ -17,6 +17,9 @@ def home():
 def new_student():
 	return render_template('student.html')
 
+@app.route('/contact')
+def Contact():
+    return render_template('contact.html')
 
 @app.route('/enternewrequest')
 def new_request():

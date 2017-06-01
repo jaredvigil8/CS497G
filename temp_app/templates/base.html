@@ -9,6 +9,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -44,6 +48,29 @@
       .row.content {height:auto;} 
     }
   </style>
+  <script>
+$(document).ready(function(){
+    if ($(window).width() > 767) {
+        var vHeight = Math.max($(document).height(), $(window).height());
+        var height = vHeight - 60;
+        cover = $('.sidenav');
+        cover.css({"height":height});
+    }
+});
+$(window).resize(function(){
+    if ($(window).width() > 767) {
+        if ($(document).height() > $(window).height()) {
+          var vheight = $(document).height() - ($(window).height()*(1/($(document).height() - $(window).height())))
+        }
+        else {
+          var vheight = $(window).height()
+        }
+        var height = vheight - 60
+        cover = $('.sidenav');
+        cover.css({"height":height});
+    }
+});
+  </script>
   </head>
 
   <body>
@@ -56,7 +83,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#">Resource Pairing Web App</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -64,10 +91,10 @@
         <li role="presentation"><a href="/Tutorial">Tutorial</a></li>
         <li role="presentation"><a href="/enternew">Donate an Item</a></li>
         <li role="presentation"><a href="/enternewrequest">Request an Item</a></li>
-        <li role="presentation"><a href="#">Contact</a></li>
+        <li role="presentation"><a href="/contact">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/Signup"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
   </div>
@@ -94,9 +121,10 @@
 
 <footer class="navbar navbar-fixed-bottom" >
 <div class="container text-center">
-  <p>Footer Text</p>
+  <p>Copyright Western Washington University - Computer Science Department</p>
 </div>
 </footer>
+
 
 </body>
 </html>
